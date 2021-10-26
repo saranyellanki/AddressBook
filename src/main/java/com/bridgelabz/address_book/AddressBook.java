@@ -6,21 +6,37 @@ import java.util.Scanner;
 public class AddressBook {
     HashMap<String, CreateContact> addressBook;
 
+    /**
+     * constructor used for initializing hashmap
+     */
     public AddressBook(){
         addressBook = new HashMap<>();
     }
+
+    /**
+     * key value pairs of hashmap are assigned
+     * @param contact which is of CreateContact type
+     */
     public void addContact(CreateContact contact){
         addressBook.put(contact.firstName + " " + contact.lastName, contact);
     }
+
+    /**
+     * This method displays the contact details if the contact exist in address book
+     */
     public void displayContact(){
         Scanner sc = new Scanner(System.in);
-        System.out.print("Enter your name : ");
+        System.out.print("Enter your first name and last name with space : ");
         String name = sc.nextLine();
         if(addressBook.containsKey(name)) {
             addressBook.get(name).show();
         }else System.out.println("Record not present");
     }
 
+    /**
+     * This method allows user to edit details with help of name
+     * Switch case used for edit only particular detail and set new value
+     */
     public void setEdit(){
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter your name : ");
@@ -57,7 +73,20 @@ public class AddressBook {
                 default -> System.out.println("Please input a valid number (1-6)");
             }
         }else System.out.println("Record not found");
+    }
 
+    /**
+     * This method deletes the contact using name of the contact
+     * hashmap remove method is used to remove the key
+     */
+    public void deleteContact(){
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter your name : ");
+        String name = sc.nextLine();
+        if(addressBook.containsKey(name)){
+            addressBook.remove(name);
+            System.out.println("Contact deleted");
+        }else System.out.println("Record not found");
     }
 
     public static void main(String[] args) {
@@ -66,7 +95,7 @@ public class AddressBook {
         boolean exit = false;
         AddressBook addressBook = new AddressBook();
         while (!exit) {
-            System.out.println("Press\n1.To Create Contact\n2.Display Contact\n3.Edit Contact\n4.To Exit");
+            System.out.println("Press\n1.To Create Contact\n2.Display Contact\n3.Edit Contact\n4.Delete contact\n5.To Exit");
             int option = sc.nextInt();
             sc.nextLine();
             switch (option) {
@@ -81,6 +110,9 @@ public class AddressBook {
                 }
                 case 3 -> {
                     addressBook.setEdit();
+                }
+                case 4 -> {
+                    addressBook.deleteContact();
                 }
                 default -> {
                     exit = true;
