@@ -2,6 +2,9 @@ package com.bridgelabz.address_book;
 
 import java.util.Scanner;
 
+/**
+ * Instance variables are initialized in their particular methods
+ */
 public class CreateContact {
     String firstName, lastName, address, city, state, emailId, phoneNumber, zipcode;
     public void setFirstName(String firstName){
@@ -28,6 +31,11 @@ public class CreateContact {
     public void setZipcode(String zipcode){
         this.zipcode = zipcode;
     }
+
+    /**
+     * show method is used to display the details filled
+     * instance variables are used to display
+     */
     public void show(){
         System.out.println("First name : " + firstName);
         System.out.println("last name : " +lastName);
@@ -38,6 +46,11 @@ public class CreateContact {
         System.out.println("Phone number : " +phoneNumber);
         System.out.println("Zipcode : "+zipcode);
     }
+
+    /**
+     * This method takes input from console
+     * @param sc input from user are set to their instance variables using respective methods
+     */
     public void createContact(Scanner sc) {
         System.out.print("Enter First Name: ");
         setFirstName(sc.nextLine());
