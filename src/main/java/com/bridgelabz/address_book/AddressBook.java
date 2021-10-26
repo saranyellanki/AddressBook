@@ -26,7 +26,7 @@ public class AddressBook {
         boolean exit = false;
         AddressBook addressBook = new AddressBook();
         while (!exit) {
-            System.out.println("Press\n1.To Create Contact\n2.Display Contact\n3.Enter New Contact\n4.To Exit");
+            System.out.println("Press\n1.To Create Contact\n2.Display Contact\n3.To Exit");
             int option = sc.nextInt();
             sc.nextLine();
             switch (option) {
@@ -37,9 +37,6 @@ public class AddressBook {
                 }
                 case 2 -> {
                     addressBook.displayContact(sc);
-                }
-                case 3 -> {
-
                 }
                 default -> {
                     exit = true;
