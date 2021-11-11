@@ -104,41 +104,31 @@ public class AddressBook {
         while (!exit) {
             System.out.println("Press\n1.Address Book 1\n2.Address Book 2\n3.Address Book 3\n4.Exit");
             int choose = sc.nextInt();
-            if(choose==4) break;
+            String key = null;
+            if(choose==1){
+                key = "Address Book 1";
+            }else if(choose==2){
+                key = "Address Book 2";
+            }else if(choose==3){
+                key = "Address Book 3";
+            }else break;
             System.out.println("Press\n1.To Create Contact\n2.Display Contact\n3.Edit Contact\n4.Delete contact\n5.To Exit");
             int option = sc.nextInt();
             sc.nextLine();
             switch (option) {
                 case 1 -> {
                     CreateContact contact = new CreateContact();
-                    if(choose==1){
-                        contact.createContact(sc);
-                        addressBook1.addContact(contact);
-                    }else if(choose==2){
-                        contact.createContact(sc);
-                        addressBook2.addContact(contact);
-                    }else if(choose==3){
-                        contact.createContact(sc);
-                        addressBook3.addContact(contact);
-                    }else System.out.println("Address Book not found");
+                    contact.createContact(sc);
+                    addressBook.get(key).addContact(contact);
                 }
                 case 2 -> {
-                    if(choose==1) addressBook1.displayContact();
-                    else if(choose==2) addressBook2.displayContact();
-                    else if(choose==3) addressBook3.displayContact();
-                    else System.out.println("Record not found");
+                    addressBook.get(key).displayContact();
                 }
                 case 3 -> {
-                    if(choose==1) addressBook1.setEdit();
-                    else if(choose==2) addressBook2.setEdit();
-                    else if(choose==3) addressBook3.setEdit();
-                    else System.out.println("Record not found");
+                    addressBook.get(key).setEdit();
                 }
                 case 4 -> {
-                    if(choose==1) addressBook1.deleteContact();
-                    else if(choose==2) addressBook2.deleteContact();
-                    else if(choose==3) addressBook3.deleteContact();
-                    else System.out.println("Record not found");
+                    addressBook.get(key).deleteContact();
                 }
                 default -> {
                     exit = true;
