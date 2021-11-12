@@ -1,10 +1,10 @@
 package com.bridgelabz.address_book;
 
-import java.util.HashMap;
-import java.util.Scanner;
+import java.util.*;
 
-public class AddressBook {
+public class AddressBook extends CreateContact{
     HashMap<String, CreateContact> contacts;
+    HashMap<String, AddressBook> addressBook =new HashMap<>();
     /**
      * constructor used for initializing hashmap
      */
@@ -28,7 +28,7 @@ public class AddressBook {
         System.out.print("Enter your first name and last name with space : ");
         String name = sc.nextLine();
         if (contacts.containsKey(name)) {
-            contacts.get(name).show();
+            show();
         } else System.out.println("Record not present");
     }
 
@@ -88,29 +88,46 @@ public class AddressBook {
         } else System.out.println("Record not found");
     }
 
+    public void searchContact(){
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter the city name to be searched : ");
+        String cityName = sc.nextLine();
+        for(Map.Entry<String,AddressBook> ab : addressBook.entrySet()){
+            AddressBook addressBookValue = ab.getValue();
+            for (Map.Entry<String,CreateContact> c : addressBookValue.contacts.entrySet()) {
+                String res = addressBookValue.contacts.get(c.getKey()).showCityOrState();
+                if(res.contains(cityName)){
+                    System.out.println(c.getKey());
+                }
+            }
+        }
+    }
+
     public static void main(String[] args) {
         System.out.println("=========================");
         System.out.println("Welcome to Address Book");
         System.out.println("=========================");
-        HashMap<String, AddressBook> addressBook =new HashMap<>();
         Scanner sc = new Scanner(System.in);
         boolean exit = false;
+        AddressBook addressBookObj = new AddressBook();
         AddressBook addressBook1 = new AddressBook();
         AddressBook addressBook2 = new AddressBook();
         AddressBook addressBook3 = new AddressBook();
-        addressBook.put("Address Book 1",addressBook1);
-        addressBook.put("Address Book 2",addressBook2);
-        addressBook.put("Address Book 3",addressBook3);
+        addressBookObj.addressBook.put("Address Book 1",addressBook1);
+        addressBookObj.addressBook.put("Address Book 2",addressBook2);
+        addressBookObj.addressBook.put("Address Book 3",addressBook3);
         while (!exit) {
-            System.out.println("Press\n1.Address Book 1\n2.Address Book 2\n3.Address Book 3\n4.Exit");
+            System.out.println("Press\n1.Address Book 1\n2.Address Book 2\n3.Address Book 3\n4.Search Persons by City\n5.Exit");
             int choose = sc.nextInt();
             String key = null;
             if(choose==1){
                 key = "Address Book 1";
             }else if(choose==2){
                 key = "Address Book 2";
-            }else if(choose==3){
+            }else if(choose==3) {
                 key = "Address Book 3";
+            }else if(choose==4){
+                addressBookObj.searchContact();
             }else break;
             System.out.println("Press\n1.To Create Contact\n2.Display Contact\n3.Edit Contact\n4.Delete contact\n5.To Exit");
             int option = sc.nextInt();
@@ -119,16 +136,21 @@ public class AddressBook {
                 case 1 -> {
                     CreateContact contact = new CreateContact();
                     contact.createContact(sc);
-                    addressBook.get(key).addContact(contact);
+                    String name = contact.firstName + " " + contact.lastName;
+                    // Java stream operation is used to check for duplication
+                    // if true else condition works , if false creates new contact in that particular address book
+                    if(addressBookObj.addressBook.get(key).contacts.keySet().stream().noneMatch(match -> match.equals(name))) {
+                        addressBookObj.addressBook.get(key).addContact(contact);
+                    }else System.out.println("Duplicate contact already exist");
                 }
                 case 2 -> {
-                    addressBook.get(key).displayContact();
+                    addressBookObj.addressBook.get(key).displayContact();
                 }
                 case 3 -> {
-                    addressBook.get(key).setEdit();
+                    addressBookObj.addressBook.get(key).setEdit();
                 }
                 case 4 -> {
-                    addressBook.get(key).deleteContact();
+                    addressBookObj.addressBook.get(key).deleteContact();
                 }
                 default -> {
                     exit = true;
