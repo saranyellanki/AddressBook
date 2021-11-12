@@ -2,9 +2,10 @@ package com.bridgelabz.address_book;
 
 import java.util.*;
 
-public class AddressBook extends CreateContact{
+public class AddressBook extends CreateContact {
     HashMap<String, CreateContact> contacts;
-    HashMap<String, AddressBook> addressBook =new HashMap<>();
+    HashMap<String, AddressBook> addressBook = new HashMap<>();
+
     /**
      * constructor used for initializing hashmap
      */
@@ -14,6 +15,7 @@ public class AddressBook extends CreateContact{
 
     /**
      * key value pairs of hashmap are assigned
+     *
      * @param contact which is of CreateContact type
      */
     public void addContact(CreateContact contact) {
@@ -88,26 +90,26 @@ public class AddressBook extends CreateContact{
         } else System.out.println("Record not found");
     }
 
-    public void searchContact(){
-        HashMap<String,String> cityPerson = new HashMap<>();
+    public void searchContact() {
+        HashMap<String, String> cityPerson = new HashMap<>();
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter the city name to be searched : ");
         String cityName = sc.nextLine();
         int personCount = 0;
-        for(Map.Entry<String,AddressBook> ab : addressBook.entrySet()){
+        for (Map.Entry<String, AddressBook> ab : addressBook.entrySet()) {
             AddressBook addressBookValue = ab.getValue();
-            for (Map.Entry<String,CreateContact> c : addressBookValue.contacts.entrySet()) {
+            for (Map.Entry<String, CreateContact> c : addressBookValue.contacts.entrySet()) {
                 String res = addressBookValue.contacts.get(c.getKey()).showCityOrState();
-                if(res.contains(cityName)){
-                    cityPerson.put(c.getKey(),cityName);
+                if (res.contains(cityName)) {
+                    cityPerson.put(c.getKey(), cityName);
                     personCount++;
                 }
             }
         }
-        for(Map.Entry<String,String> pc : cityPerson.entrySet()){
-            System.out.println("Name of Person : "+pc.getKey());
+        for (Map.Entry<String, String> pc : cityPerson.entrySet()) {
+            System.out.println("Name of Person : " + pc.getKey());
         }
-        System.out.println("Number of persons in same city : "+personCount);
+        System.out.println("Number of persons in same city : " + personCount);
     }
 
     public static void main(String[] args) {
@@ -120,22 +122,22 @@ public class AddressBook extends CreateContact{
         AddressBook addressBook1 = new AddressBook();
         AddressBook addressBook2 = new AddressBook();
         AddressBook addressBook3 = new AddressBook();
-        addressBookObj.addressBook.put("Address Book 1",addressBook1);
-        addressBookObj.addressBook.put("Address Book 2",addressBook2);
-        addressBookObj.addressBook.put("Address Book 3",addressBook3);
+        addressBookObj.addressBook.put("Address Book 1", addressBook1);
+        addressBookObj.addressBook.put("Address Book 2", addressBook2);
+        addressBookObj.addressBook.put("Address Book 3", addressBook3);
         while (!exit) {
             System.out.println("Press\n1.Address Book 1\n2.Address Book 2\n3.Address Book 3\n4.Search Persons by City\n5.Exit");
             int choose = sc.nextInt();
             String key = null;
-            if(choose==1){
+            if (choose == 1) {
                 key = "Address Book 1";
-            }else if(choose==2){
+            } else if (choose == 2) {
                 key = "Address Book 2";
-            }else if(choose==3) {
+            } else if (choose == 3) {
                 key = "Address Book 3";
-            }else if(choose==4){
+            } else if (choose == 4) {
                 addressBookObj.searchContact();
-            }else break;
+            } else break;
             System.out.println("Press\n1.To Create Contact\n2.Display Contact\n3.Edit Contact\n4.Delete contact\n5.To Exit");
             int option = sc.nextInt();
             sc.nextLine();
@@ -146,9 +148,9 @@ public class AddressBook extends CreateContact{
                     String name = contact.firstName + " " + contact.lastName;
                     // Java stream operation is used to check for duplication
                     // if true else condition works , if false creates new contact in that particular address book
-                    if(addressBookObj.addressBook.get(key).contacts.keySet().stream().noneMatch(match -> match.equals(name))) {
+                    if (addressBookObj.addressBook.get(key).contacts.keySet().stream().noneMatch(match -> match.equals(name))) {
                         addressBookObj.addressBook.get(key).addContact(contact);
-                    }else System.out.println("Duplicate contact already exist");
+                    } else System.out.println("Duplicate contact already exist");
                 }
                 case 2 -> {
                     addressBookObj.addressBook.get(key).displayContact();
