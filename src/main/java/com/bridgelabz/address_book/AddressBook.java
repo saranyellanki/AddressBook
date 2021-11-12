@@ -89,6 +89,7 @@ public class AddressBook extends CreateContact{
     }
 
     public void searchContact(){
+        HashMap<String,String> cityPerson = new HashMap<>();
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter the city name to be searched : ");
         String cityName = sc.nextLine();
@@ -97,9 +98,12 @@ public class AddressBook extends CreateContact{
             for (Map.Entry<String,CreateContact> c : addressBookValue.contacts.entrySet()) {
                 String res = addressBookValue.contacts.get(c.getKey()).showCityOrState();
                 if(res.contains(cityName)){
-                    System.out.println(c.getKey());
+                    cityPerson.put(c.getKey(),cityName);
                 }
             }
+        }
+        for(Map.Entry<String,String> pc : cityPerson.entrySet()){
+            System.out.println("Name of Person : "+pc.getKey());
         }
     }
 
