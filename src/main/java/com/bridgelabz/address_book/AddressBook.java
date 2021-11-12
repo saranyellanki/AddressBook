@@ -119,7 +119,12 @@ public class AddressBook {
                 case 1 -> {
                     CreateContact contact = new CreateContact();
                     contact.createContact(sc);
-                    addressBook.get(key).addContact(contact);
+                    String name = contact.firstName + " " + contact.lastName;
+                    // Java stream operation is used to check for duplication
+                    // if true else condition works , if false creates new contact in that particular address book
+                    if(addressBook.get(key).contacts.keySet().stream().noneMatch(match -> match.equals(name))) {
+                        addressBook.get(key).addContact(contact);
+                    }else System.out.println("Duplicate contact already exist");
                 }
                 case 2 -> {
                     addressBook.get(key).displayContact();
