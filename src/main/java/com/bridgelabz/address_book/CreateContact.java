@@ -47,6 +47,10 @@ public class CreateContact {
         System.out.println("Zipcode : "+zipcode);
     }
 
+    public String showCityOrState(){
+        return city+" "+state;
+    }
+
     /**
      * This method takes input from console
      * @param sc input from user are set to their instance variables using respective methods
