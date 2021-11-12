@@ -93,18 +93,21 @@ public class AddressBook extends CreateContact{
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter the city name to be searched : ");
         String cityName = sc.nextLine();
+        int personCount = 0;
         for(Map.Entry<String,AddressBook> ab : addressBook.entrySet()){
             AddressBook addressBookValue = ab.getValue();
             for (Map.Entry<String,CreateContact> c : addressBookValue.contacts.entrySet()) {
                 String res = addressBookValue.contacts.get(c.getKey()).showCityOrState();
                 if(res.contains(cityName)){
                     cityPerson.put(c.getKey(),cityName);
+                    personCount++;
                 }
             }
         }
         for(Map.Entry<String,String> pc : cityPerson.entrySet()){
             System.out.println("Name of Person : "+pc.getKey());
         }
+        System.out.println("Number of persons in same city : "+personCount);
     }
 
     public static void main(String[] args) {
