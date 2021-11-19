@@ -103,4 +103,34 @@ public class AddressBook {
                 collect(Collectors.toList());
         contactsSortByName.forEach(contact -> System.out.println(contact.getFirstName()));
     }
+    /**
+     * This method sorts all the contacts in a particular address book by their city
+     * java streams are used to sort and forEach to print contacts
+     */
+    public void sortByCityName(){
+        List<CreateContact> contactsSortByName = contactNameIndex.stream().
+                sorted(Comparator.comparing(CreateContact::getCity)).
+                collect(Collectors.toList());
+        contactsSortByName.forEach(contact -> System.out.println(contact.getFirstName()+" "+contact.getCity()));
+    }
+    /**
+     * This method sorts all the contacts in a particular address book by their state
+     * java streams are used to sort and forEach to print contacts
+     */
+    public void sortByStateName(){
+        List<CreateContact> contactsSortByName = contactNameIndex.stream().
+                sorted(Comparator.comparing(CreateContact::getState)).
+                collect(Collectors.toList());
+        contactsSortByName.forEach(contact -> System.out.println(contact.getFirstName()+" "+contact.getState()));
+    }
+    /**
+     * This method sorts all the contacts in a particular address book by their zipcode
+     * java streams are used to sort and forEach to print contacts
+     */
+    public void sortByZipCode(){
+        List<CreateContact> contactsSortByName = contactNameIndex.stream().
+                sorted(Comparator.comparing(CreateContact::getZipcode)).
+                collect(Collectors.toList());
+        contactsSortByName.forEach(contact -> System.out.println(contact.getFirstName()+ " "+contact.getZipcode()));
+    }
 }
