@@ -1,10 +1,12 @@
 package com.bridgelabz.address_book;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
-public class AddressBook extends CreateContact {
+
+public class AddressBook {
     HashMap<String, CreateContact> contacts;
-    HashMap<String, AddressBook> addressBook = new HashMap<>();
+    List<CreateContact> contactNameIndex = new ArrayList<>();
 
     /**
      * constructor used for initializing hashmap
@@ -20,6 +22,7 @@ public class AddressBook extends CreateContact {
      */
     public void addContact(CreateContact contact) {
         contacts.put(contact.firstName + " " + contact.lastName, contact);
+        contactNameIndex.add(contact);
     }
 
     /**
@@ -30,7 +33,7 @@ public class AddressBook extends CreateContact {
         System.out.print("Enter your first name and last name with space : ");
         String name = sc.nextLine();
         if (contacts.containsKey(name)) {
-            show();
+            contacts.get(name).show();
         } else System.out.println("Record not present");
     }
 
@@ -90,81 +93,14 @@ public class AddressBook extends CreateContact {
         } else System.out.println("Record not found");
     }
 
-    public void searchContact() {
-        HashMap<String, String> cityPerson = new HashMap<>();
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Enter the city name to be searched : ");
-        String cityName = sc.nextLine();
-        int personCount = 0;
-        for (Map.Entry<String, AddressBook> ab : addressBook.entrySet()) {
-            AddressBook addressBookValue = ab.getValue();
-            for (Map.Entry<String, CreateContact> c : addressBookValue.contacts.entrySet()) {
-                String res = addressBookValue.contacts.get(c.getKey()).showCityOrState();
-                if (res.contains(cityName)) {
-                    cityPerson.put(c.getKey(), cityName);
-                    personCount++;
-                }
-            }
-        }
-        for (Map.Entry<String, String> pc : cityPerson.entrySet()) {
-            System.out.println("Name of Person : " + pc.getKey());
-        }
-        System.out.println("Number of persons in same city : " + personCount);
-    }
-
-    public static void main(String[] args) {
-        System.out.println("=========================");
-        System.out.println("Welcome to Address Book");
-        System.out.println("=========================");
-        Scanner sc = new Scanner(System.in);
-        boolean exit = false;
-        AddressBook addressBookObj = new AddressBook();
-        AddressBook addressBook1 = new AddressBook();
-        AddressBook addressBook2 = new AddressBook();
-        AddressBook addressBook3 = new AddressBook();
-        addressBookObj.addressBook.put("Address Book 1", addressBook1);
-        addressBookObj.addressBook.put("Address Book 2", addressBook2);
-        addressBookObj.addressBook.put("Address Book 3", addressBook3);
-        while (!exit) {
-            System.out.println("Press\n1.Address Book 1\n2.Address Book 2\n3.Address Book 3\n4.Search Persons by City\n5.Exit");
-            int choose = sc.nextInt();
-            String key = null;
-            if (choose == 1) {
-                key = "Address Book 1";
-            } else if (choose == 2) {
-                key = "Address Book 2";
-            } else if (choose == 3) {
-                key = "Address Book 3";
-            } else if (choose == 4) {
-                addressBookObj.searchContact();
-            } else break;
-            System.out.println("Press\n1.To Create Contact\n2.Display Contact\n3.Edit Contact\n4.Delete contact\n5.To Exit");
-            int option = sc.nextInt();
-            sc.nextLine();
-            switch (option) {
-                case 1 -> {
-                    CreateContact contact = new CreateContact();
-                    contact.createContact(sc);
-                    String name = contact.firstName + " " + contact.lastName;
-                    // Java stream operation is used to check for duplication
-                    // if true else condition works , if false creates new contact in that particular address book
-                    if (addressBookObj.addressBook.get(key).contacts.keySet().stream().noneMatch(match -> match.equals(name))) {
-                        addressBookObj.addressBook.get(key).addContact(contact);
-                    } else System.out.println("Duplicate contact already exist");
-                }
-                case 2 -> {
-                    addressBookObj.addressBook.get(key).displayContact();
-                }
-                case 3 -> {
-                    addressBookObj.addressBook.get(key).setEdit();
-                }
-                case 4 -> {
-                    addressBookObj.addressBook.get(key).deleteContact();
-                }
-                default -> {
-                    exit = true;
-                }
-            }
-        }
+    /**
+     * This method sorts all the contacts in a particular address book by their firstnames
+     * java streams are used to sort and forEach to print contacts
+     */
+    public void sortEntriesByName() {
+        List<CreateContact> contactsSortByName = contactNameIndex.stream().
+                sorted(Comparator.comparing(CreateContact::getFirstName)).
+                collect(Collectors.toList());
+        contactsSortByName.forEach(contact -> System.out.println(contact.getFirstName()));
     }
 }
