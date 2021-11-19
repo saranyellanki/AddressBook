@@ -32,6 +32,38 @@ public class CreateContact {
         this.zipcode = zipcode;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public String getEmailId() {
+        return emailId;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getZipcode() {
+        return zipcode;
+    }
+
     /**
      * show method is used to display the details filled
      * instance variables are used to display
