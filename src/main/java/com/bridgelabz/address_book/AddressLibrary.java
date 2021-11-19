@@ -56,7 +56,8 @@ public class AddressLibrary {
             } else if (choose == 4) {
                 searchContact();
             } else break;
-            System.out.println("Press\n1.To Create Contact\n2.Display Contact\n3.Edit Contact\n4.Delete contact\n5.SortedList\n6.To Exit");
+            System.out.println("Press\n1.To Create Contact\n2.Display Contact\n3.Edit Contact\n" +
+                    "4.Delete contact\n5.SortByName\n6.SortByCity\n7.SortByState\n8.SortByZipcode\n9.To Exit");
             int option = sc.nextInt();
             sc.nextLine();
             CreateContact contact = new CreateContact();
@@ -81,6 +82,15 @@ public class AddressLibrary {
                 }
                 case 5 -> {
                     addressBook.get(key).sortEntriesByName();
+                }
+                case 6 -> {
+                    addressBook.get(key).sortByCityName();
+                }
+                case 7 -> {
+                    addressBook.get(key).sortByStateName();
+                }
+                case 8 -> {
+                    addressBook.get(key).sortByZipCode();
                 }
                 default -> {
                     exit = true;
