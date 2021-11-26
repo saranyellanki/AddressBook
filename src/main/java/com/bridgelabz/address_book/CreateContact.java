@@ -1,5 +1,6 @@
 package com.bridgelabz.address_book;
 
+import java.io.File;
 import java.util.Scanner;
 
 /**
@@ -7,6 +8,7 @@ import java.util.Scanner;
  */
 public class CreateContact {
     String firstName, lastName, address, city, state, emailId, phoneNumber, zipcode;
+    
     public void setFirstName(String firstName){
         this.firstName = firstName;
     }
@@ -68,15 +70,9 @@ public class CreateContact {
      * show method is used to display the details filled
      * instance variables are used to display
      */
-    public void show(){
-        System.out.println("First name : " + firstName);
-        System.out.println("last name : " +lastName);
-        System.out.println("Address : " +address);
-        System.out.println("City : " +city);
-        System.out.println("State : " +state);
-        System.out.println("Email Id : " +emailId);
-        System.out.println("Phone number : " +phoneNumber);
-        System.out.println("Zipcode : "+zipcode);
+    public String show(){
+        return "First name : " + firstName + "\nlast name : " +lastName + "\nAddress : " +address + "\nCity : " +city +
+                "\nState : " +state + "\nEmail Id : " +emailId + "\nPhone number : " +phoneNumber + "\nZipcode : "+zipcode +"\n\n";
     }
 
     public String showCityOrState(){
