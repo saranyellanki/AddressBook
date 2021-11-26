@@ -1,5 +1,9 @@
 package com.bridgelabz.address_book;
 
+import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
+import com.opencsv.exceptions.CsvValidationException;
+
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -57,10 +61,45 @@ public class AddressLibrary {
         }
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void readCSVFile() throws IOException, CsvValidationException {
+        String[] data;
+        CSVReader csvReader1 = new CSVReader(new FileReader("/home/hp/Desktop/PROJECTS/AddressBook/AddressBook1.csv"));
+        System.out.println("Address Book 1");
+        while ((data=csvReader1.readNext())!=null){
+            for (String str : data) {
+                System.out.print(str + "\t");
+            }
+            System.out.println();
+        }
+        CSVReader csvReader2 = new CSVReader(new FileReader("/home/hp/Desktop/PROJECTS/AddressBook/AddressBook2.csv"));
+        System.out.println("Address Book 2");
+        while ((data=csvReader2.readNext())!=null){
+            for (String str : data) {
+                System.out.print(str + "\t");
+            }
+            System.out.println();
+        }
+        CSVReader csvReader3 = new CSVReader(new FileReader("/home/hp/Desktop/PROJECTS/AddressBook/AddressBook3.csv"));
+        System.out.println("Address Book 3");
+        while ((data=csvReader3.readNext())!=null){
+            for (String str : data) {
+                System.out.print(str + "\t");
+            }
+            System.out.println();
+        }
+    }
+
+    public static void main(String[] args) throws IOException, CsvValidationException {
         BufferedWriter bw1 = new BufferedWriter(new FileWriter("/home/hp/Desktop/PROJECTS/AddressBook/AddressBook1.txt"));
         BufferedWriter bw2 = new BufferedWriter(new FileWriter("/home/hp/Desktop/PROJECTS/AddressBook/AddressBook2.txt"));
         BufferedWriter bw3 = new BufferedWriter(new FileWriter("/home/hp/Desktop/PROJECTS/AddressBook/AddressBook3.txt"));
+        CSVWriter book1 = new CSVWriter(new FileWriter("/home/hp/Desktop/PROJECTS/AddressBook/AddressBook1.csv"));
+        CSVWriter book2 = new CSVWriter(new FileWriter("/home/hp/Desktop/PROJECTS/AddressBook/AddressBook2.csv"));
+        CSVWriter book3 = new CSVWriter(new FileWriter("/home/hp/Desktop/PROJECTS/AddressBook/AddressBook3.csv"));
+        String[] header = {"First Name","Last Name","Address","city","state","emailId","phoneNumber","zipcode"};
+        book1.writeNext(header);
+        book2.writeNext(header);
+        book3.writeNext(header);
         addressBook.put("Address Book 1", new AddressBook());
         addressBook.put("Address Book 2", new AddressBook());
         addressBook.put("Address Book 3", new AddressBook());
@@ -103,41 +142,38 @@ public class AddressLibrary {
                     if (addressBook.get(key).contacts.keySet().stream().noneMatch(match -> match.equals(name))) {
                         addressBook.get(key).addContact(contact);
                         switch (choose){
-                            case 1 -> bw1.write(contact.show());
-                            case 2 -> bw2.write(contact.show());
-                            case 3 -> bw3.write(contact.show());
+                            case 1 -> {
+                                bw1.write(contact.show());
+                                book1.writeNext(contact.CSVData());
+                            }
+                            case 2 -> {
+                                bw2.write(contact.show());
+                                book2.writeNext(contact.CSVData());
+                            }
+                            case 3 -> {
+                                bw3.write(contact.show());
+                                book3.writeNext(contact.CSVData());
+                            }
                         }
                     } else System.out.println("Duplicate contact already exist");
                 }
-                case 2 -> {
-                    addressBook.get(key).displayContact();
-                }
-                case 3 -> {
-                    addressBook.get(key).setEdit();
-                }
-                case 4 -> {
-                    addressBook.get(key).deleteContact();
-                }
-                case 5 -> {
-                    addressBook.get(key).sortEntriesByName();
-                }
-                case 6 -> {
-                    addressBook.get(key).sortByCityName();
-                }
-                case 7 -> {
-                    addressBook.get(key).sortByStateName();
-                }
-                case 8 -> {
-                    addressBook.get(key).sortByZipCode();
-                }
-                default -> {
-                    exit = true;
-                }
+                case 2 -> addressBook.get(key).displayContact();
+                case 3 -> addressBook.get(key).setEdit();
+                case 4 -> addressBook.get(key).deleteContact();
+                case 5 -> addressBook.get(key).sortEntriesByName();
+                case 6 -> addressBook.get(key).sortByCityName();
+                case 7 -> addressBook.get(key).sortByStateName();
+                case 8 -> addressBook.get(key).sortByZipCode();
+                default -> exit = true;
             }
         }
         bw1.close();
         bw2.close();
         bw3.close();
+        book1.close();
+        book2.close();
+        book3.close();
         readFromFile();
+        readCSVFile();
     }
 }

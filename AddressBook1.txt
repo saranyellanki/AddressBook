@@ -1,27 +1,18 @@
 First name : saran
 last name : yellanki
-Address : sajbasd
-City : skljcnbasd
-State : ascjkhbasdf
-Email Id : aldjaubfas
-Phone number : dlajubcf
-Zipcode : asdjiasbdf
+Address : 103 vinyaka plaza
+City : vizag
+State : ap
+Email Id : saajd@9y12.com
+Phone number : 19827412
+Zipcode : 8091273
 
-First name : madhukar
-last name : tata
-Address : kjcbasc
-City : 'alscjihabcf
-State : 'acjuahcf
-Email Id : alckauidh
-Phone number : alsdjn
-Zipcode : andh
-
-First name : shubham
-last name : aosna
-Address : aksjbca
-City : ajfna
-State : daojdnad
-Email Id : adjnad
-Phone number : adajdnad
-Zipcode : asodn
+First name : santhan
+last name : yee
+Address : noida
+City : delhi
+State : delhi
+Email Id : sanhub@ojc.com
+Phone number : 108221
+Zipcode : 1207
 

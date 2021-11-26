@@ -1,6 +1,5 @@
 package com.bridgelabz.address_book;
 
-import java.io.File;
 import java.util.Scanner;
 
 /**
@@ -100,5 +99,8 @@ public class CreateContact {
         setPhoneNumber(sc.nextLine());
         System.out.print("Enter zipcode: ");
         setZipcode(sc.nextLine());
+    }
+    public String[] CSVData(){
+        return new String[]{firstName, lastName, address, city, state, emailId, phoneNumber, zipcode};
     }
 }
