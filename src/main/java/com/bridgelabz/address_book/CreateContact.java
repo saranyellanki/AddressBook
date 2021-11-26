@@ -7,42 +7,41 @@ import java.util.Scanner;
  */
 public class CreateContact {
     String firstName, lastName, address, city, state, emailId, phoneNumber, zipcode;
-    
-    public void setFirstName(String firstName){
+
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-    public void setLastName(String lastName){
+
+    public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-    public void setAddress(String address){
+
+    public void setAddress(String address) {
         this.address = address;
     }
-    public void setCity(String city){
+
+    public void setCity(String city) {
         this.city = city;
     }
-    public void setState(String state){
+
+    public void setState(String state) {
         this.state = state;
     }
-    public void setEmailId(String emailId){
+
+    public void setEmailId(String emailId) {
         this.emailId = emailId;
     }
-    public void setPhoneNumber(String phoneNumber){
+
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-    public void setZipcode(String zipcode){
+
+    public void setZipcode(String zipcode) {
         this.zipcode = zipcode;
     }
 
     public String getFirstName() {
         return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getAddress() {
-        return address;
     }
 
     public String getCity() {
@@ -53,14 +52,6 @@ public class CreateContact {
         return state;
     }
 
-    public String getEmailId() {
-        return emailId;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
     public String getZipcode() {
         return zipcode;
     }
@@ -69,17 +60,18 @@ public class CreateContact {
      * show method is used to display the details filled
      * instance variables are used to display
      */
-    public String show(){
-        return "First name : " + firstName + "\nlast name : " +lastName + "\nAddress : " +address + "\nCity : " +city +
-                "\nState : " +state + "\nEmail Id : " +emailId + "\nPhone number : " +phoneNumber + "\nZipcode : "+zipcode +"\n\n";
+    public String show() {
+        return "First name : " + firstName + "\nlast name : " + lastName + "\nAddress : " + address + "\nCity : " + city +
+                "\nState : " + state + "\nEmail Id : " + emailId + "\nPhone number : " + phoneNumber + "\nZipcode : " + zipcode + "\n\n";
     }
 
-    public String showCityOrState(){
-        return city+" "+state;
+    public String showCityOrState() {
+        return city + " " + state;
     }
 
     /**
      * This method takes input from console
+     *
      * @param sc input from user are set to their instance variables using respective methods
      */
     public void createContact(Scanner sc) {
@@ -100,7 +92,12 @@ public class CreateContact {
         System.out.print("Enter zipcode: ");
         setZipcode(sc.nextLine());
     }
-    public String[] CSVData(){
+
+    /**
+     * This method returns string array as CSV data
+     * @return string array
+     */
+    public String[] CSVData() {
         return new String[]{firstName, lastName, address, city, state, emailId, phoneNumber, zipcode};
     }
 }
