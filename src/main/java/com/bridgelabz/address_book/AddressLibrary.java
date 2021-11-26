@@ -1,5 +1,6 @@
 package com.bridgelabz.address_book;
 
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -34,7 +35,32 @@ public class AddressLibrary {
         System.out.println("Number of persons in same city : " + personCount);
     }
 
-    public static void main(String[] args) {
+    public static void readFromFile() throws IOException {
+        String data;
+        BufferedReader br1 = new BufferedReader(new FileReader("/home/hp/Desktop/PROJECTS/AddressBook/AddressBook1.txt"));
+        System.out.println("Address Book 1");
+        while ((data = br1.readLine())!=null){
+            System.out.print(data);
+            System.out.println();
+        }
+        BufferedReader br2 = new BufferedReader(new FileReader("/home/hp/Desktop/PROJECTS/AddressBook/AddressBook2.txt"));
+        System.out.println("Address Book 2");
+        while ((data = br2.readLine())!=null){
+            System.out.print(data);
+            System.out.println();
+        }
+        BufferedReader br3 = new BufferedReader(new FileReader("/home/hp/Desktop/PROJECTS/AddressBook/AddressBook3.txt"));
+        System.out.println("Address Book 3");
+        while ((data = br3.readLine())!=null){
+            System.out.print(data);
+            System.out.println();
+        }
+    }
+
+    public static void main(String[] args) throws IOException {
+        BufferedWriter bw1 = new BufferedWriter(new FileWriter("/home/hp/Desktop/PROJECTS/AddressBook/AddressBook1.txt"));
+        BufferedWriter bw2 = new BufferedWriter(new FileWriter("/home/hp/Desktop/PROJECTS/AddressBook/AddressBook2.txt"));
+        BufferedWriter bw3 = new BufferedWriter(new FileWriter("/home/hp/Desktop/PROJECTS/AddressBook/AddressBook3.txt"));
         addressBook.put("Address Book 1", new AddressBook());
         addressBook.put("Address Book 2", new AddressBook());
         addressBook.put("Address Book 3", new AddressBook());
@@ -56,8 +82,17 @@ public class AddressLibrary {
             } else if (choose == 4) {
                 searchContact();
             } else break;
-            System.out.println("Press\n1.To Create Contact\n2.Display Contact\n3.Edit Contact\n" +
-                    "4.Delete contact\n5.SortByName\n6.SortByCity\n7.SortByState\n8.SortByZipcode\n9.To Exit");
+            System.out.println("""
+                    Press
+                    1.To Create Contact
+                    2.Display Contact
+                    3.Edit Contact
+                    4.Delete contact
+                    5.SortByName
+                    6.SortByCity
+                    7.SortByState
+                    8.SortByZipcode
+                    9.To Exit""");
             int option = sc.nextInt();
             sc.nextLine();
             CreateContact contact = new CreateContact();
@@ -65,10 +100,13 @@ public class AddressLibrary {
                 case 1 -> {
                     contact.createContact(sc);
                     String name = contact.firstName + " " + contact.lastName;
-                    // Java stream operation is used to check for duplication
-                    // if true else condition works , if false creates new contact in that particular address book
                     if (addressBook.get(key).contacts.keySet().stream().noneMatch(match -> match.equals(name))) {
                         addressBook.get(key).addContact(contact);
+                        switch (choose){
+                            case 1 -> bw1.write(contact.show());
+                            case 2 -> bw2.write(contact.show());
+                            case 3 -> bw3.write(contact.show());
+                        }
                     } else System.out.println("Duplicate contact already exist");
                 }
                 case 2 -> {
@@ -97,5 +135,9 @@ public class AddressLibrary {
                 }
             }
         }
+        bw1.close();
+        bw2.close();
+        bw3.close();
+        readFromFile();
     }
 }
