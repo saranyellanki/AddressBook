@@ -39,33 +39,44 @@ public class AddressLibrary {
         System.out.println("Number of persons in same city : " + personCount);
     }
 
+    /**
+     * This method is used for reading the file
+     *
+     * @throws IOException for FileReader
+     */
     public static void readFromFile() throws IOException {
         String data;
         BufferedReader br1 = new BufferedReader(new FileReader("/home/hp/Desktop/PROJECTS/AddressBook/AddressBook1.txt"));
         System.out.println("Address Book 1");
-        while ((data = br1.readLine())!=null){
+        while ((data = br1.readLine()) != null) {
             System.out.print(data);
             System.out.println();
         }
         BufferedReader br2 = new BufferedReader(new FileReader("/home/hp/Desktop/PROJECTS/AddressBook/AddressBook2.txt"));
         System.out.println("Address Book 2");
-        while ((data = br2.readLine())!=null){
+        while ((data = br2.readLine()) != null) {
             System.out.print(data);
             System.out.println();
         }
         BufferedReader br3 = new BufferedReader(new FileReader("/home/hp/Desktop/PROJECTS/AddressBook/AddressBook3.txt"));
         System.out.println("Address Book 3");
-        while ((data = br3.readLine())!=null){
+        while ((data = br3.readLine()) != null) {
             System.out.print(data);
             System.out.println();
         }
     }
 
+    /**
+     * This method is used to read CSV file
+     *
+     * @throws IOException            for FileReader
+     * @throws CsvValidationException for CSVReader
+     */
     public static void readCSVFile() throws IOException, CsvValidationException {
         String[] data;
         CSVReader csvReader1 = new CSVReader(new FileReader("/home/hp/Desktop/PROJECTS/AddressBook/AddressBook1.csv"));
         System.out.println("Address Book 1");
-        while ((data=csvReader1.readNext())!=null){
+        while ((data = csvReader1.readNext()) != null) {
             for (String str : data) {
                 System.out.print(str + "\t");
             }
@@ -73,7 +84,7 @@ public class AddressLibrary {
         }
         CSVReader csvReader2 = new CSVReader(new FileReader("/home/hp/Desktop/PROJECTS/AddressBook/AddressBook2.csv"));
         System.out.println("Address Book 2");
-        while ((data=csvReader2.readNext())!=null){
+        while ((data = csvReader2.readNext()) != null) {
             for (String str : data) {
                 System.out.print(str + "\t");
             }
@@ -81,7 +92,7 @@ public class AddressLibrary {
         }
         CSVReader csvReader3 = new CSVReader(new FileReader("/home/hp/Desktop/PROJECTS/AddressBook/AddressBook3.csv"));
         System.out.println("Address Book 3");
-        while ((data=csvReader3.readNext())!=null){
+        while ((data = csvReader3.readNext()) != null) {
             for (String str : data) {
                 System.out.print(str + "\t");
             }
@@ -96,7 +107,7 @@ public class AddressLibrary {
         CSVWriter book1 = new CSVWriter(new FileWriter("/home/hp/Desktop/PROJECTS/AddressBook/AddressBook1.csv"));
         CSVWriter book2 = new CSVWriter(new FileWriter("/home/hp/Desktop/PROJECTS/AddressBook/AddressBook2.csv"));
         CSVWriter book3 = new CSVWriter(new FileWriter("/home/hp/Desktop/PROJECTS/AddressBook/AddressBook3.csv"));
-        String[] header = {"First Name","Last Name","Address","city","state","emailId","phoneNumber","zipcode"};
+        String[] header = {"First Name", "Last Name", "Address", "city", "state", "emailId", "phoneNumber", "zipcode"};
         book1.writeNext(header);
         book2.writeNext(header);
         book3.writeNext(header);
@@ -109,7 +120,13 @@ public class AddressLibrary {
         Scanner sc = new Scanner(System.in);
         boolean exit = false;
         while (!exit) {
-            System.out.println("Press\n1.Address Book 1\n2.Address Book 2\n3.Address Book 3\n4.Search Persons by City\n5.Exit");
+            System.out.println("""
+                    Press
+                    1.Address Book 1
+                    2.Address Book 2
+                    3.Address Book 3
+                    4.Search Contact by City
+                    5.Exit""");
             int choose = sc.nextInt();
             String key = null;
             if (choose == 1) {
@@ -141,7 +158,7 @@ public class AddressLibrary {
                     String name = contact.firstName + " " + contact.lastName;
                     if (addressBook.get(key).contacts.keySet().stream().noneMatch(match -> match.equals(name))) {
                         addressBook.get(key).addContact(contact);
-                        switch (choose){
+                        switch (choose) {
                             case 1 -> {
                                 bw1.write(contact.show());
                                 book1.writeNext(contact.CSVData());

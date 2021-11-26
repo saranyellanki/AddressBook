@@ -1,11 +1,5 @@
 package com.bridgelabz.address_book;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -109,34 +103,37 @@ public class AddressBook {
                 collect(Collectors.toList());
         contactsSortByName.forEach(contact -> System.out.println(contact.getFirstName()));
     }
+
     /**
      * This method sorts all the contacts in a particular address book by their city
      * java streams are used to sort and forEach to print contacts
      */
-    public void sortByCityName(){
+    public void sortByCityName() {
         List<CreateContact> contactsSortByName = contactNameIndex.stream().
                 sorted(Comparator.comparing(CreateContact::getCity)).
                 collect(Collectors.toList());
-        contactsSortByName.forEach(contact -> System.out.println(contact.getFirstName()+" "+contact.getCity()));
+        contactsSortByName.forEach(contact -> System.out.println(contact.getFirstName() + " " + contact.getCity()));
     }
+
     /**
      * This method sorts all the contacts in a particular address book by their state
      * java streams are used to sort and forEach to print contacts
      */
-    public void sortByStateName(){
+    public void sortByStateName() {
         List<CreateContact> contactsSortByName = contactNameIndex.stream().
                 sorted(Comparator.comparing(CreateContact::getState)).
                 collect(Collectors.toList());
-        contactsSortByName.forEach(contact -> System.out.println(contact.getFirstName()+" "+contact.getState()));
+        contactsSortByName.forEach(contact -> System.out.println(contact.getFirstName() + " " + contact.getState()));
     }
+
     /**
      * This method sorts all the contacts in a particular address book by their zipcode
      * java streams are used to sort and forEach to print contacts
      */
-    public void sortByZipCode(){
+    public void sortByZipCode() {
         List<CreateContact> contactsSortByName = contactNameIndex.stream().
                 sorted(Comparator.comparing(CreateContact::getZipcode)).
                 collect(Collectors.toList());
-        contactsSortByName.forEach(contact -> System.out.println(contact.getFirstName()+ " "+contact.getZipcode()));
+        contactsSortByName.forEach(contact -> System.out.println(contact.getFirstName() + " " + contact.getZipcode()));
     }
 }
