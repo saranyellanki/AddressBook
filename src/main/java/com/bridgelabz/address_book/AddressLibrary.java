@@ -1,8 +1,13 @@
 package com.bridgelabz.address_book;
 
+import com.google.gson.Gson;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvValidationException;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import java.io.*;
 import java.util.HashMap;
@@ -100,13 +105,45 @@ public class AddressLibrary {
         }
     }
 
-    public static void main(String[] args) throws IOException, CsvValidationException {
+    public static void readJSONFile(){
+        JSONParser parser = new JSONParser();
+        try {
+            JSONArray jsonFile1 = (JSONArray) parser.parse(new FileReader("/home/hp/Desktop/PROJECTS/AddressBook/AddressBook1.json"));
+            System.out.println(jsonFile1.toJSONString());
+        } catch (IOException | ParseException fnf){
+            fnf.printStackTrace();
+        }
+        try {
+            JSONArray jsonFile2 = (JSONArray) parser.parse(new FileReader("/home/hp/Desktop/PROJECTS/AddressBook/AddressBook2.json"));
+            System.out.println(jsonFile2.toJSONString());
+        } catch (IOException | ParseException fnf){
+            fnf.printStackTrace();
+        }
+        try {
+            JSONArray jsonFile3 = (JSONArray) parser.parse(new FileReader("/home/hp/Desktop/PROJECTS/AddressBook/AddressBook3.json"));
+            System.out.println(jsonFile3.toJSONString());
+        } catch (IOException | ParseException fnf){
+            fnf.printStackTrace();
+        }
+    }
+
+    public static void addressMain() throws IOException, ParseException {
         BufferedWriter bw1 = new BufferedWriter(new FileWriter("/home/hp/Desktop/PROJECTS/AddressBook/AddressBook1.txt"));
         BufferedWriter bw2 = new BufferedWriter(new FileWriter("/home/hp/Desktop/PROJECTS/AddressBook/AddressBook2.txt"));
         BufferedWriter bw3 = new BufferedWriter(new FileWriter("/home/hp/Desktop/PROJECTS/AddressBook/AddressBook3.txt"));
+
         CSVWriter book1 = new CSVWriter(new FileWriter("/home/hp/Desktop/PROJECTS/AddressBook/AddressBook1.csv"));
         CSVWriter book2 = new CSVWriter(new FileWriter("/home/hp/Desktop/PROJECTS/AddressBook/AddressBook2.csv"));
         CSVWriter book3 = new CSVWriter(new FileWriter("/home/hp/Desktop/PROJECTS/AddressBook/AddressBook3.csv"));
+
+        FileWriter json1 = new FileWriter("/home/hp/Desktop/PROJECTS/AddressBook/AddressBook1.json");
+        FileWriter json2 = new FileWriter("/home/hp/Desktop/PROJECTS/AddressBook/AddressBook2.json");
+        FileWriter json3 = new FileWriter("/home/hp/Desktop/PROJECTS/AddressBook/AddressBook3.json");
+
+        JSONArray jsonList1 = new JSONArray();
+        JSONArray jsonList2 = new JSONArray();
+        JSONArray jsonList3 = new JSONArray();
+
         String[] header = {"First Name", "Last Name", "Address", "city", "state", "emailId", "phoneNumber", "zipcode"};
         book1.writeNext(header);
         book2.writeNext(header);
@@ -118,6 +155,7 @@ public class AddressLibrary {
         System.out.println("Welcome to Address Book");
         System.out.println("=========================");
         Scanner sc = new Scanner(System.in);
+        Gson gson = new Gson();
         boolean exit = false;
         while (!exit) {
             System.out.println("""
@@ -158,18 +196,24 @@ public class AddressLibrary {
                     String name = contact.firstName + " " + contact.lastName;
                     if (addressBook.get(key).contacts.keySet().stream().noneMatch(match -> match.equals(name))) {
                         addressBook.get(key).addContact(contact);
+                        String json = gson.toJson(contact);
+                        JSONParser parser = new JSONParser();
+                        JSONObject jsonObj = (JSONObject) parser.parse(json);
                         switch (choose) {
                             case 1 -> {
                                 bw1.write(contact.show());
                                 book1.writeNext(contact.CSVData());
+                                jsonList1.add(jsonObj);
                             }
                             case 2 -> {
                                 bw2.write(contact.show());
                                 book2.writeNext(contact.CSVData());
+                                jsonList2.add(jsonObj);
                             }
                             case 3 -> {
                                 bw3.write(contact.show());
                                 book3.writeNext(contact.CSVData());
+                                jsonList3.add(jsonObj);
                             }
                         }
                     } else System.out.println("Duplicate contact already exist");
@@ -190,7 +234,18 @@ public class AddressLibrary {
         book1.close();
         book2.close();
         book3.close();
+        json1.write(jsonList1.toJSONString());
+        json2.write(jsonList2.toJSONString());
+        json3.write(jsonList3.toJSONString());
+        json1.close();
+        json2.close();
+        json3.close();
+    }
+
+    public static void main(String[] args) throws IOException, CsvValidationException, ParseException {
+        addressMain();
         readFromFile();
         readCSVFile();
+        readJSONFile();
     }
 }

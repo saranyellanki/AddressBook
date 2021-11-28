@@ -95,9 +95,17 @@ public class CreateContact {
 
     /**
      * This method returns string array as CSV data
+     *
      * @return string array
      */
     public String[] CSVData() {
         return new String[]{firstName, lastName, address, city, state, emailId, phoneNumber, zipcode};
+    }
+
+    @Override
+    public String toString() {
+        return "\"[FirstName : " + firstName + ", LastName : " + lastName + ", Address : " + address +
+                ", City : " + city + ", State : " + state + ", Email : " + emailId + ", Phone : " + phoneNumber +
+                ", ZipCode : " + zipcode + "]";
     }
 }

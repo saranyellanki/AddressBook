@@ -1,18 +1,18 @@
 First name : saran
 last name : yellanki
-Address : 103 vinyaka plaza
+Address : Kurmannapalem
 City : vizag
-State : ap
-Email Id : saajd@9y12.com
-Phone number : 19827412
-Zipcode : 8091273
+State : Ap
+Email Id : saan.ww@gm,ail.com
+Phone number : 9923984921
+Zipcode : 530046
 
-First name : santhan
-last name : yee
-Address : noida
-City : delhi
-State : delhi
-Email Id : sanhub@ojc.com
-Phone number : 108221
-Zipcode : 1207
+First name : madhukar
+last name : tatiraju
+Address : Gurudwar
+City : Vizag
+State : AP
+Email Id : mad.t@gmail.com
+Phone number : 98738941213
+Zipcode : 087324
 
